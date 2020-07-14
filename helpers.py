@@ -3,7 +3,7 @@ import datetime
 from dateutil.relativedelta import relativedelta
 import pytz
 import os
-from lib.entsoe import EntsoePandasClient
+from entsoe.entsoe import EntsoePandasClient
 
 
 file_names = {
