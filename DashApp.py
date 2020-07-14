@@ -8,7 +8,7 @@ from dateutil.parser import parse
 import pytz
 import plotly.express as px
 
-from lib.helpers import *
+from helpers import *
 
 
 
