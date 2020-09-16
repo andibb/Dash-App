@@ -1,0 +1,28 @@
+.fig_energy_produced{
+	padding: var(--fig_padding);
+	border-radius: var(--fig_border_radius);
+	background-color: var(--fig_bg_color);
+	height : 500px;
+}
+
+.fig_energy_intensity{
+	padding: var(--fig_padding);
+	border-radius: var(--fig_border_radius);
+	background-color: var(--fig_bg_color);
+	height : 500px;
+}
+
+
+.fig_energy_percentage{
+	padding: var(--fig_padding);
+	border-radius: var(--fig_border_radius);
+	background-color: var(--fig_bg_color);
+	height : 500px;
+}
+
+.fig_energy_composition{
+	padding: var(--fig_padding);
+	border-radius: var(--fig_border_radius);
+	background-color: var(--fig_bg_color);
+	height : 500px;
+}
