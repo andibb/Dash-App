@@ -23,7 +23,7 @@ from helpers import *
 from entsoe.entsoe import *
 
 app = dash.Dash(__name__)
-
+server = app.server
 
 #data needed for the slider : 
 dcc_slider_data      = get_data('DE-AMPRION',data_type='live')
