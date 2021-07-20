@@ -1,0 +1,20 @@
+.Area_1_l:hover {
+	box-shadow: 0 4px 8px 0  var(--shadow-color-from), 0 6px 20px 0 var(--shadow-color-to);
+}
+/*
+.Area_0:hover {
+	box-shadow: 0 4px 8px 0  var(--shadow-color-from), 0 6px 20px 0 var(--shadow-color-to);
+}
+*/
+.Area_1_r:hover {
+	box-shadow: 0 4px 8px 0  var(--shadow-color-from), 0 6px 20px 0 var(--shadow-color-to);
+}
+.Area_2_l:hover {
+	box-shadow: 0 4px 8px 0  var(--shadow-color-from), 0 6px 20px 0 var(--shadow-color-to);
+}
+.Area_2_r:hover {
+	box-shadow: 0 4px 8px 0  var(--shadow-color-from), 0 6px 20px 0 var(--shadow-color-to);
+}
+.Area_3:hover {
+	box-shadow: 0 4px 8px 0  var(--shadow-color-from), 0 6px 20px 0 var(--shadow-color-to);
+}
