@@ -48,4 +48,32 @@ class DateTimeHandler:
         
         return start_time,end_time
     
+    def get_slider_times(self,selected_slider_values):
+        '''
+        Declaration: 
+        getting datetimes for live EntsoeClient call out of selected slider values
         
+        Input: 
+        selected_slider_values = int,int
+        Output:
+        pd.Timestamp,pd.Timestamp
+        '''
+        try:
+            selected_slider_values.sort()
+        except AttributeError:
+            selected_slider_values = [0,1]
+
+        germany_tz = self.pytz.timezone("Europe/Berlin")
+        date = self.datetime.datetime.now()
+        germany_tz = self.pytz.timezone("Europe/Berlin")
+        start_time = self.datetime.datetime.combine(date, self.datetime.datetime.min.time())
+        end_time = start_time + self.relativedelta(hours=date.hour)
+        start_time = germany_tz.localize(start_time)
+        end_time = germany_tz.localize(end_time)
+        start_time = self.pd.Timestamp(start_time)
+        end_time = self.pd.Timestamp(end_time)
+
+        start_time = start_time + self.relativedelta(hours=selected_slider_values[0])
+        end_time = start_time + self.relativedelta(hours=selected_slider_values[1])
+
+        return start_time,end_time

@@ -41,9 +41,12 @@ class CalcEngine():
         # PV: 50, Braunkohle 1075, Steinkohle 830, Erdgas 500, Wasserkraft 23, Windkraft 18
         # alle Angaben sind in gC02/KWh 
         gc02_per_kWh = {'Biomass':50,'Fossil Brown coal/Lignite':1075,'Fossil Gas':500,'Fossil Hard coal':830,'Fossil Oil':900,'Geothermal':0,'Hydro Water Reservoir':23,'Hydro Pumped Storage':23,'Hydro Run-of-river and poundage':23,'Nuclear':10,'Other':500,'Other renewable':100,'Solar':50,'Waste':50,'Wind Onshore':18,'Wind Offshore':18}
-        for el in df:
-            df[el] = df[el]*gc02_per_kWh[el]
-        df = df.sum(axis=1)
+        try:
+            for el in df:
+                df[el] = df[el]*gc02_per_kWh[el]
+            df = df.sum(axis=1)
+        except KeyError:
+            print('could not find key!')
         return df
 
     def calc_percentage(self,df):

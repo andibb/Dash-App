@@ -27,12 +27,12 @@ class DataHandler(FileHandler):
         '''
         FilePath = self.get_FilePath(metadata)
         if (self.test_file_exists(FilePath)):
-            print('read file from db : '+ FilePath)
+            #print('read file from db : '+ FilePath)
             df = self.pd.read_csv(FilePath,index_col=0)
             df.index = df.index.map(lambda x: self.pd.Timestamp(x,tz='Europe/Berlin',freq='H'))
             return df
         else:
-            print('no data @db -> generate new data')
+            #print('no data @db -> generate new data')
             return self.set_data(metadata)
 
     def set_data(self,metadata):
@@ -46,13 +46,22 @@ class DataHandler(FileHandler):
         FilePath = self.get_FilePath(metadata)
 
         if metadata["data_type"] == 'live':
-            if metadata['region'] =='DE':   
-                df = self.entsoe.query_generation(start=metadata['start'],end=metadata['end']+self.relativedelta(hours=1),country_code=metadata['region'])
-                df = df.resample('1H').mean()
+            if metadata['region'] =='DE':
+                try:   
+                    df = self.entsoe.query_generation(start=metadata['start'],end=metadata['end']+self.relativedelta(hours=1),country_code=metadata['region'])
+                    df = df.resample('1H').mean()
+                except:
+                    print('Warning! for DE no live Data!')
+                    df = []
             else:
-                df = self.entsoe.query_generation(start=start,end=metadata['end']+self.relativedelta(hours=1),country_code=metadata['region'],lookup_bzones=True)
-                df = df.resample('1H').mean()
-            df.to_csv(FilePath)
+                try:
+                    df = self.entsoe.query_generation(start=metadata['start'],end=metadata['end']+self.relativedelta(hours=1),country_code=metadata['region'],lookup_bzones=True)
+                    df = df.resample('1H').mean()
+                except:
+                    print('For '+metadata['region']+' no ' + metadata["data_type"] + ' '+ metadata['forecast_type'] +' Data!')
+                    df = []
+            #df.to_csv(FilePath)
+            return df
 
         if metadata["data_type"] == "forecast":
             '''
@@ -65,7 +74,8 @@ class DataHandler(FileHandler):
 
             '''
             if metadata["forecast_type"] == "statistical":
-                print('call calc engine for statistical forecast')
+                #print('call calc engine for statistical forecast')
+                #print('I am here dtype = '+metadata['data_type']+'\n forecast_type = '+metadata['forecast_type']+'\nFilePath = ' +FilePath)
                 df = self.get_statistical_forecast(metadata)
                 df.to_csv(FilePath)
                 return df
@@ -106,10 +116,15 @@ class DataHandler(FileHandler):
                 df = df.resample('1H').mean()
                 df.to_csv(FilePath)
             else:
-                df = self.entsoe.query_generation(start=metadata['start'],end=metadata['end']+self.relativedelta(hours=1),country_code=metadata['region'],lookup_bzones=True)
-                df = df.resample('1H').mean()
-                df.to_csv(FilePath)        
-            return df
+                try:
+                    df = self.entsoe.query_generation(start=metadata['start'],end=metadata['end']+self.relativedelta(hours=1),country_code=metadata['region'],lookup_bzones=True)
+                    df = df.resample('1H').mean()
+                    df.to_csv(FilePath)
+                    return df
+                except:
+                    #print('no generation yet!')
+                    return []
+            
 
     def get_data_container(
         self,
@@ -134,6 +149,7 @@ class DataHandler(FileHandler):
                         data_metadata_dummy['start'] = timestamps[0]
                         data_metadata_dummy['end'] = timestamps[1]
                         metadata_grp_call[region][data_type][i] = self.get_data(data_metadata_dummy)
+                    #print(metadata_grp_call[region][data_type])
                     metadata_grp_call[region][data_type] = self.pd.concat(metadata_grp_call[region][data_type])
                 else:
                     for forecast_type in metadata_grp_call[region][data_type]:
