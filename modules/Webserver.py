@@ -4,9 +4,9 @@ class Webserver:
 
     def __init__(self,dash,html,dcc,go,px,pd,relativedelta,os,pytz,datetime,API_KEY,EntsoePandasClient,textwrap,Input, Output):
         
-        app = dash.dash.Dash(__name__)
-        self.Controller = Controller(pd,relativedelta,os,pytz,datetime,API_KEY,EntsoePandasClient,html,dcc,go,textwrap,px,app,Input, Output,dash)
+        self.app = dash.dash.Dash(__name__)
+        self.Controller = Controller(pd,relativedelta,os,pytz,datetime,API_KEY,EntsoePandasClient,html,dcc,go,textwrap,px,self.app,Input, Output,dash)
         
         if __name__ == 'modules.Webserver':
-            app.run_server(debug=True)
+            #self.app.run_server(host='0.0.0.0')
             print("Webserver initiated")

@@ -36,3 +36,5 @@ class DashApp:
         print("DashApp Initiated")
 
 DashApp = DashApp()
+
+server = DashApp.Webserver.app.server
