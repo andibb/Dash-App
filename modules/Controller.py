@@ -24,7 +24,6 @@ class Controller:
         figure_list = {
             'energy_produced': ['live entsoe', 'forecast entsoe', 'forecast statistical'],
             'energy_percentage': ['forecast statistical', 'live entsoe'],
-            'energy_composition': ['live entsoe'],
             'energy_carbon_intensity': ['live entsoe', 'forecast statistical']
         }
 
@@ -55,12 +54,11 @@ class Controller:
 
             # override global times
             metadata_slider = metadata
+            metadata_slider['region'] = selected_dropdown_value
             metadata_slider['start'] = slider_start_time
             metadata_slider['end'] = slider_end_time
 
             self.update_all_figures({'energy_composition': ['live entsoe']}, metadata_slider)
-            print(end_time.hour)
-            print(slider_end_time)
             return [self.View.figures['energy_composition'], range_slider_marks, end_time.hour]
 
         # create callbacks for each figure/modal ...
@@ -85,7 +83,7 @@ class Controller:
         )
         def update_figure(selected_dropdown_value):
             start, stop = self.DataHandler.get_day_times()
-
+            print(start,stop)
             metadata['region'] = selected_dropdown_value
             metadata['start'] = start
             metadata['stop'] = stop
