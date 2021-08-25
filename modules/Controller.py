@@ -47,9 +47,7 @@ class Controller:
             slider_style = {'font_size': 14, 'font_type': "Courier New, monospace"}
             range_slider_style = dict(fontFamily=slider_style['font_type'], fontSize=slider_style['font_size'], )
             times = [start_time + relativedelta(hours=x) for x in range(end_time.hour+1)]
-            range_slider_marks = {x.hour: {'label': times[i].strftime('%H:%M'), 'style': range_slider_style} for i, x in
-                                  enumerate(times)}
-
+            range_slider_marks = {x.hour: {'label': times[i].strftime('%H:%M'), 'style': range_slider_style} for i, x in enumerate(times)}
             slider_start_time, slider_end_time = self.DataHandler.get_slider_times(selected_slider_value)
 
             # override global times
@@ -98,6 +96,7 @@ class Controller:
                     data_type, forecast_type = trace.split()
                     metadata['data_type'] = data_type
                     metadata['forecast_type'] = forecast_type
+                    metadata['start'],metadata['end'] = self.DataHandler.get_day_times()
                     try:
                         df = self.DataHandler.get_percentage(metadata)
                         self.View.update_figure(df, 'energy_percentage', trace)
@@ -109,6 +108,7 @@ class Controller:
                     data_type, forecast_type = trace.split()
                     metadata['data_type'] = data_type
                     metadata['forecast_type'] = forecast_type
+                    metadata['start'],metadata['end'] = self.DataHandler.get_day_times()
                     # print(metadata['data_type'])
                     try:
                         df = self.DataHandler.get_data(metadata=metadata)
@@ -132,6 +132,7 @@ class Controller:
                     data_type, forecast_type = trace.split()
                     metadata['data_type'] = data_type
                     metadata['forecast_type'] = forecast_type
+                    metadata['start'],metadata['end'] = self.DataHandler.get_day_times()
                     try:
                         df = self.DataHandler.get_gC02(metadata=metadata)
                         self.View.update_figure(df, 'energy_carbon_intensity', trace)
