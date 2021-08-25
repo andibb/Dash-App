@@ -1,0 +1,61 @@
+.grid-container {
+  display: grid;
+  grid-template-columns: 0.05fr 1fr 0.05fr;
+  grid-template-rows: 0.05fr 0.05fr 1fr 1fr 1fr 0.05fr;
+  gap: 20px 1px;
+  grid-template-areas: ". . ." ". Area_0 ." ". Area_1 ." ". Area_2 ." ". Area_3 ." ". . .";
+}
+
+.Area_0 { grid-area: Area_0; }
+
+.Area_1 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
+  gap: 0px 20px;
+  grid-template-areas: "Area_1_l Area_1_r";
+  grid-area: Area_1;
+}
+
+.Area_1_l {
+  display: grid;
+  grid-template-columns: 0.05fr 1fr 0.05fr;
+  grid-template-rows:  0.1fr 1fr;
+  gap: 1px 1px;
+  grid-template-areas:  ". Area_1_l_top ." ". Area_1_l_bot ." ;
+  grid-area: Area_1_l;
+}
+
+.Area_1_l_bot { grid-area: Area_1_l_bot; }
+
+.Area_1_l_top { grid-area: Area_1_l_top; }
+
+.Area_1_r { grid-area: Area_1_r; }
+
+.Area_2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
+  gap: 0px 20px;
+  grid-template-areas: "Area_2_l Area_2_r";
+  grid-area: Area_2;
+}
+
+.Area_2_l { grid-area: Area_2_l; }
+
+.Area_2_r { grid-area: Area_2_r; }
+
+.Area_3 {
+  display: grid;
+  grid-template-columns: 0.2fr 1fr;
+  grid-template-rows: 1fr;
+  gap: 1px 1px;
+  grid-template-areas: "Area_3_l Area_3_r";
+  grid-area: Area_3;
+}
+
+.Area_3_l { grid-area: Area_3_l; }
+
+.Area_3_r { grid-area: Area_3_r; }
+
+/*.Area_3 { grid-area: Area_3; }*/
