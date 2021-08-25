@@ -2,7 +2,6 @@ from modules.submodules.CalcEngine import CalcEngine
 from modules.submodules.DataHandler import DataHandler
 from modules.submodules.entsoe.entsoe import EntsoePandasClient
 from modules.Webserver import Webserver
-
 from modules.Controller import Controller
 from modules.View import View
 
@@ -32,9 +31,12 @@ API_KEY = os.getenv('API_KEY')
 
 class DashApp:
     def __init__(self):
-        self.Webserver = Webserver(dash,html,dcc,go,px,pd,relativedelta,os,pytz,datetime,API_KEY,EntsoePandasClient,textwrap,Input, Output)
+        self.app = dash.dash.Dash(__name__)
+        self.Controller = Controller(pd,relativedelta,os,pytz,datetime,API_KEY,EntsoePandasClient,html,dcc,go,textwrap,px,self.app,Input, Output,dash)
+        self.app.run_server(host="0.0.0.0")
         print("DashApp Initiated")
 
 DashApp = DashApp()
+server = DashApp.app.server
 
-server = DashApp.Webserver.app.server
+
