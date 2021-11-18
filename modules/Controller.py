@@ -84,7 +84,7 @@ class Controller:
             print(start,stop)
             metadata['region'] = selected_dropdown_value
             metadata['start'] = start
-            metadata['stop'] = stop
+            metadata['end'] = stop
             self.update_all_figures(figure_list, metadata)
             return self.View.figures['energy_produced'], self.View.figures['energy_carbon_intensity'], \
                    self.View.figures['energy_percentage']
